@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # Compatibility API for rnc2rng 1.0
 from . import parser, serializer
 
