@@ -2,6 +2,7 @@ import rnc2rng
 import unittest
 from urllib.parse import urlparse
 from urllib.request import url2pathname
+from pathlib import Path
 import importlib.resources as resources
 from . import golden
 
@@ -22,6 +23,8 @@ class TestSuite(unittest.TestCase):
         if ref.startswith("file:"):
             parse_result = urlparse(ref)
             ref = url2pathname(parse_result.path)
+        # Extract just the filename for resources.open_text
+        ref = Path(ref).name
         with resources.open_text(golden, ref) as expect_src:
             expected = expect_src.read().rstrip()
             actual = rnc2rng.dumps(root).strip()
